@@ -277,7 +277,16 @@ Install these plugins:
 
 ---
 
-# 8. Jenkins Email Configuration
+---
+
+# 8. Login Test Cases
+
+[Login Test Cases](tests/LoginTestCases.md)
+
+---
+
+---
+# 9. Jenkins Email Configuration
 
 Go to:
 
@@ -306,7 +315,7 @@ jenkins@company.com
 
 ---
 
-# 9. Create Jenkins Job
+# 10. Create Jenkins Job
 
 Steps:
 
@@ -356,7 +365,7 @@ Save.
 
 ---
 
-# 10. Execution Flow
+# 11. Execution Flow
 
 When pipeline runs:
 
@@ -390,7 +399,7 @@ Email sent with attachment
 
 ---
 
-# 11. Expected Build Output
+# 12. Expected Build Output
 
 ```
 bin/
@@ -405,7 +414,7 @@ FlashLogin.app
 
 ---
 
-# 12. Example Jenkins Console Output
+# 13. Example Jenkins Console Output
 
 ```
 [Pipeline] Checkout Source
@@ -427,7 +436,7 @@ Email sent successfully
 
 ---
 
-# 13. Production CI/CD Best Practices
+# 14. Production CI/CD Best Practices
 
 Recommended improvements:
 

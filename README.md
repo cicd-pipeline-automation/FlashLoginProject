@@ -1,7 +1,13 @@
 
+## 1. Jenkins CI/CD Pipeline Flow
+
+The following diagram illustrates the Jenkins CI/CD pipeline for the FlashLogin project:
+
+![FlashLogin Jenkins Pipeline](docs/jenkins_pipeline_flow.png)
+
 ---
 
-# 1. Complete Project Structure
+# 2. Complete Project Structure
 
 Example repository:
 
@@ -43,7 +49,7 @@ Explanation:
 
 ---
 
-# 2. Structured Text Login Program
+# 3. Structured Text Login Program
 
 File:
 
@@ -87,7 +93,7 @@ END_PROGRAM
 
 ---
 
-# 3. Supporting Type File
+# 4. Supporting Type File
 
 ```
 src/LoginTypes.st
@@ -105,7 +111,7 @@ END_TYPE
 
 ---
 
-# 4. Build Script (Production Automation)
+# 5. Build Script (Production Automation)
 
 File:
 
@@ -139,116 +145,126 @@ Write-Host "Build Completed Successfully"
 
 ---
 
-# 5. Jenkins Pipeline (Production Ready)
+# 6. Jenkins Pipeline for FlashLogin PLC Project
 
-File:
+This Jenkins pipeline automates the build, verification, archiving, and notification process for the FlashLogin PLC project. It uses a `jenkins.war` setup on a Windows agent with PowerShell scripts.
 
-```
-Jenkinsfile
-```
+## Pipeline Overview
+
+- **Checkout Source:** Pulls code from the Git repository.
+- **Verify Environment:** Checks Jenkins agent directories and files.
+- **Build PLC Project:** Executes Solution Center CLI build script.
+- **Verify Build Output:** Confirms compiled artifacts exist in the `/bin` folder.
+- **Archive Artifact:** Stores compiled `.app` files in Jenkins.
+- **Send Build Email:** Notifies developers with the build result and attaches the artifact.
+
+## Jenkinsfile
 
 ```groovy
 pipeline {
-
     agent any
 
     environment {
+        // ============================
+        // Environment Setup
+        // ----------------------------
         BUILD_OUTPUT = "bin"
         ARTIFACT_PATTERN = "bin/*.app"
     }
 
     stages {
 
+        // ============================
+        // Stage 1: Checkout Source Code
+        // ----------------------------
         stage('Checkout Source') {
-
             steps {
                 git branch: 'main',
-                url: 'https://github.com/company/FlashLoginProject.git'
+                    url: 'https://github.com/cicd-pipeline-automation/FlashLoginProject.git'
             }
-
         }
 
+        // ============================
+        // Stage 2: Verify Jenkins Environment
+        // ----------------------------
         stage('Verify Environment') {
-
             steps {
                 powershell 'Get-ChildItem'
             }
-
         }
 
+        // ============================
+        // Stage 3: Build PLC Project
+        // ----------------------------
         stage('Build PLC Project') {
-
             steps {
                 powershell './build/build.ps1'
             }
-
         }
 
+        // ============================
+        // Stage 4: Verify Build Output
+        // ----------------------------
         stage('Verify Build Output') {
-
             steps {
                 powershell 'Get-ChildItem bin'
             }
-
         }
 
+        // ============================
+        // Stage 5: Archive Artifact
+        // ----------------------------
         stage('Archive Artifact') {
-
             steps {
                 archiveArtifacts artifacts: 'bin/*.app', fingerprint: true
             }
-
         }
 
+        // ============================
+        // Stage 6: Send Build Email
+        // ----------------------------
         stage('Send Build Email') {
-
             steps {
-
                 emailext(
                     subject: "FlashLogin PLC Build Success - ${BUILD_NUMBER}",
                     body: """
-                    Build Completed Successfully.
+                        Build Completed Successfully.
 
-                    Job Name: ${JOB_NAME}
-                    Build Number: ${BUILD_NUMBER}
+                        Job Name: ${JOB_NAME}
+                        Build Number: ${BUILD_NUMBER}
 
-                    The compiled artifact from the bin folder is attached.
-
+                        The compiled artifact from the bin folder is attached.
                     """,
-                    to: "plc-dev-team@company.com",
+                    to: "devopsuser8413@gmail.com",
                     attachmentsPattern: "bin/*.app"
                 )
-
             }
-
         }
 
     }
 
     post {
-
+        // ============================
+        // Post-build Actions
+        // ----------------------------
         success {
             echo "Build Completed Successfully"
         }
 
         failure {
-
             emailext(
                 subject: "FlashLogin Build FAILED",
-                body: "Build failed. Check Jenkins logs.",
-                to: "plc-dev-team@company.com"
+                body: "Build failed. Check Jenkins logs for details.",
+                to: "devopsuser8413@gmail.com"
             )
-
         }
-
     }
-
 }
 ```
 
 ---
 
-# 6. Jenkins Plugin Requirements
+# 7. Jenkins Plugin Requirements
 
 Install these plugins:
 
@@ -261,7 +277,7 @@ Install these plugins:
 
 ---
 
-# 7. Jenkins Email Configuration
+# 8. Jenkins Email Configuration
 
 Go to:
 
@@ -290,7 +306,7 @@ jenkins@company.com
 
 ---
 
-# 8. Create Jenkins Job
+# 9. Create Jenkins Job
 
 Steps:
 
@@ -321,7 +337,7 @@ Git
 Repository:
 
 ```
-https://github.com/company/FlashLoginProject.git
+https://github.com/cicd-pipeline-automation/FlashLoginProject.git
 ```
 
 Branch:
@@ -340,7 +356,7 @@ Save.
 
 ---
 
-# 9. Execution Flow
+# 10. Execution Flow
 
 When pipeline runs:
 
@@ -374,7 +390,7 @@ Email sent with attachment
 
 ---
 
-# 10. Expected Build Output
+# 11. Expected Build Output
 
 ```
 bin/
@@ -389,7 +405,7 @@ FlashLogin.app
 
 ---
 
-# 11. Example Jenkins Console Output
+# 12. Example Jenkins Console Output
 
 ```
 [Pipeline] Checkout Source
@@ -411,7 +427,7 @@ Email sent successfully
 
 ---
 
-# 12. Production CI/CD Best Practices
+# 13. Production CI/CD Best Practices
 
 Recommended improvements:
 

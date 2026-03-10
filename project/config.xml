@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <ProjectConfig>
+        <ProjectName>FlashLoginProject</ProjectName>
+        <PLCType>FlashPLCControllerV1</PLCType>
+        <Language>StructuredText</Language>
+        <TargetDirectory>..\bin</TargetDirectory>
+    </ProjectConfig>
+
+    <LoginSettings>
+        <MaxAttempts>3</MaxAttempts>
+        <TimeoutSeconds>30</TimeoutSeconds>
+    </LoginSettings>
+
+    <CompilerConfig>
+        <OptimizationLevel>High</OptimizationLevel>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <IncludeDebugSymbols>false</IncludeDebugSymbols>
+    </CompilerConfig>
+
+    <EmailSettings>
+        <SendEmailOnBuildSuccess>true</SendEmailOnBuildSuccess>
+        <Recipient>plc-dev-team@company.com</Recipient>
+    </EmailSettings>
+</Configuration>

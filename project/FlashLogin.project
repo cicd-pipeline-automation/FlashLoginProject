@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project>
+    <ProjectInfo>
+        <Name>FlashLoginProject</Name>
+        <Description>PLC Flash Login Sample Project</Description>
+        <Version>1.0.0</Version>
+        <CreatedBy>PLC Developer</CreatedBy>
+        <CreationDate>2026-03-10</CreationDate>
+    </ProjectInfo>
+
+    <ProjectSettings>
+        <TargetPlatform>FlashPLC</TargetPlatform>
+        <CompilerOptions>
+            <Optimization>High</Optimization>
+            <WarningsAsErrors>True</WarningsAsErrors>
+        </CompilerOptions>
+    </ProjectSettings>
+
+    <SourceFiles>
+        <File>
+            <Path>..\src\FlashLogin.st</Path>
+            <Type>PROGRAM</Type>
+        </File>
+        <File>
+            <Path>..\src\LoginTypes.st</Path>
+            <Type>TYPE</Type>
+        </File>
+    </SourceFiles>
+
+    <Output>
+        <OutputFolder>..\bin</OutputFolder>
+        <OutputFileName>FlashLogin.app</OutputFileName>
+    </Output>
+
+    <BuildSteps>
+        <Step order="1" name="Compile" />
+        <Step order="2" name="Link" />
+        <Step order="3" name="Package" />
+    </BuildSteps>
+
+</Project>

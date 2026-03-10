@@ -281,7 +281,7 @@ Install these plugins:
 
 # 8. Login Test Cases
 
-[Login Test Cases](tests/LoginTestCases.md)
+[Login Test Cases](test/LoginTestCases.md)
 
 ---
 
